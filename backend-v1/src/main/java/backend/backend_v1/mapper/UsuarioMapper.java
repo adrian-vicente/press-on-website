@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import backend.backend_v1.dto.Usuario.UsuarioCreateDTO;
 import backend.backend_v1.dto.Usuario.UsuarioDTO;
 import backend.backend_v1.model.Usuario;
 
@@ -76,8 +77,19 @@ public class UsuarioMapper {
 
     }
 
-    // Método de dto creación a entidad 
+    // Método de conversión a entidad de dto de creación
 
-    // Método de dto modificación a entidad 
+    public Usuario toEntityFromCreateDTO(UsuarioCreateDTO usuarioCreate) {
+        Usuario usuario = new Usuario();
+            usuario.setNombre(usuarioCreate.getNombre());
+            usuario.setApellidos(usuarioCreate.getApellidos());
+            usuario.setFotoPerfil_url(usuarioCreate.getFotoPerfil_url());
+            usuario.setEmail(usuarioCreate.getEmail());
+            usuario.setPassword( passwordEncoder.encode(usuarioCreate.getPassword()) );
+            usuario.setFechaCreacion(LocalDateTime.now());
+
+        return usuario;
+
+    }
 
 } // class

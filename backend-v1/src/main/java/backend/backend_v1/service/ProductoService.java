@@ -7,9 +7,7 @@ import backend.backend_v1.dto.Producto.ProductoCreateDTO;
 import backend.backend_v1.dto.Producto.ProductoDTO;
 import backend.backend_v1.exception.Producto.ProductoAlreadyExistsException;
 import backend.backend_v1.mapper.ProductoMapper;
-import backend.backend_v1.mapper.UsuarioMapper;
 import backend.backend_v1.model.Producto;
-import backend.backend_v1.repository.ColeccionRepository;
 import backend.backend_v1.repository.ProductoRepository;
 
 @Service 
@@ -18,14 +16,10 @@ public class ProductoService {
     // Inyección de dependencias
 
     private final ProductoMapper productoMapper;
-    private final ColeccionRepository coleccionRepository;
-    private final ColeccionService coleccionService;
     private final ProductoRepository productoRepository;
 
-    public ProductoService(ProductoMapper productoMapper, ColeccionRepository coleccionRepository, ColeccionService coleccionService, ProductoRepository productoRepository) {
+    public ProductoService(ProductoMapper productoMapper, ProductoRepository productoRepository) {
         this.productoMapper = productoMapper;
-        this.coleccionRepository = coleccionRepository;
-        this.coleccionService = coleccionService;
         this.productoRepository = productoRepository;
     }
 

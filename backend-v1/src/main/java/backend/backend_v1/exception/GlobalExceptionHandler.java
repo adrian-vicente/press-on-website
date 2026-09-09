@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import backend.backend_v1.exception.Producto.ProductoAlreadyExistsException;
+import backend.backend_v1.exception.Usuario.UsuarioAlreadyExistsException;
 
 @RestControllerAdvice 
 public class GlobalExceptionHandler {
@@ -23,6 +24,14 @@ public class GlobalExceptionHandler {
     public ResponseEntity<String> usuarioNoEncontrado(UsernameNotFoundException ex) {
         return ResponseEntity
             .status(HttpStatus.NOT_FOUND)
+            .body(ex.getMessage());
+            
+    }
+
+    @ExceptionHandler(UsuarioAlreadyExistsException.class)
+    public ResponseEntity<String> usuarioAlreadyExists(UsuarioAlreadyExistsException ex) {
+        return ResponseEntity
+            .status(HttpStatus.CONFLICT)
             .body(ex.getMessage());
             
     }

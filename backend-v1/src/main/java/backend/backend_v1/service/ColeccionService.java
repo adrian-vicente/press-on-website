@@ -12,12 +12,10 @@ public class ColeccionService {
 
     private final ColeccionRepository coleccionRepository;
     private final ColeccionMapper coleccionMapper;
-    private final ProductoService productoService;
 
-    public ColeccionService(ColeccionRepository coleccionRepository, ColeccionMapper coleccionMapper, ProductoService productoService) {
+    public ColeccionService(ColeccionRepository coleccionRepository, ColeccionMapper coleccionMapper) {
         this.coleccionRepository = coleccionRepository;
         this.coleccionMapper = coleccionMapper;
-        this.productoService = productoService;
 
     } 
 

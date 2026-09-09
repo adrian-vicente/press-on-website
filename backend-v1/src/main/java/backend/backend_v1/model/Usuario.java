@@ -3,6 +3,7 @@ package backend.backend_v1.model;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -31,6 +32,7 @@ public class Usuario {
     private String apellidos;
     private String fotoPerfil_url;
 
+    @Column(unique = true, nullable = false)
     private String email;
     private String password;
 
