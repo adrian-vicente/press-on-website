@@ -1,6 +1,7 @@
 package backend.backend_v1.security;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -11,8 +12,6 @@ import java.util.Date;
 import java.util.function.Function;
 
 import javax.crypto.SecretKey;
-
-// Esta clase permite generar y validar los tokens
 
 @Service 
 public class JwtService {

@@ -1,5 +1,6 @@
 package backend.backend_v1.dto.Login;
 
-public class LoginRequestDTO {
+public record LoginRequestDTO (
+    String email, String password
 
-}
+) {}
