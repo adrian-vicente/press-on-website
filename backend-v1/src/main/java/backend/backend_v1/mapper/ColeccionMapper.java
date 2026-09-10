@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import backend.backend_v1.config.ValidadorConfig;
 import backend.backend_v1.dto.Coleccion.ColeccionCreateDTO;
 import backend.backend_v1.dto.Coleccion.ColeccionDTO;
+import backend.backend_v1.dto.Coleccion.ColeccionUpdateDTO;
 import backend.backend_v1.model.Coleccion;
 
 @Configuration 
@@ -26,7 +27,7 @@ public class ColeccionMapper {
             if(ValidadorConfig.validarIdentificador(coleccionDTO.getId())) {
                 coleccion.setId(coleccionDTO.getId());
 
-            } // if
+            } else return null;
 
             if(ValidadorConfig.validarFecha(coleccionDTO.getFechaCreacion())) {
                 coleccion.setFechaCreacion(coleccionDTO.getFechaCreacion());
@@ -49,7 +50,7 @@ public class ColeccionMapper {
             if(ValidadorConfig.validarIdentificador(coleccion.getId())) {
                 coleccionDTO.setId(coleccion.getId());
                  
-            } // if
+            } else return null;
 
             if(ValidadorConfig.validarFecha(coleccion.getFechaCreacion())) {
                 coleccionDTO.setFechaCreacion(coleccion.getFechaCreacion());
@@ -83,5 +84,32 @@ public class ColeccionMapper {
     } // toEntityFromCreateDTO
 
     // Método de conversión dto de modificación a entidad
-    
+
+    public Coleccion toEntityFromUpdateDTO(ColeccionDTO coleccionActual ,ColeccionUpdateDTO coleccionUpdate) {
+        Coleccion coleccion = new Coleccion();
+            coleccion.setId(coleccionActual.getId());
+            coleccion.setFechaCreacion(coleccionActual.getFechaCreacion());
+            coleccion.setFechaActualizacion(LocalDateTime.now());
+
+        if(coleccionActual.getNombre() != null && (coleccionUpdate.getNombre() != null && coleccionUpdate.getNombre().toLowerCase().trim().equals(coleccionActual.getNombre().toLowerCase().trim())) ) {
+            coleccion.setNombre(coleccionUpdate.getNombre());
+
+        } // if
+
+        if(coleccionActual.getDescripcion() != null && (coleccionUpdate.getDescripcion() != null && coleccionUpdate.getDescripcion().toLowerCase().trim().equals(coleccionActual.getNombre().toLowerCase().trim()))) {
+            coleccion.setDescripcion(coleccionUpdate.getDescripcion());
+        
+        } // if
+
+        if(coleccionActual.getFoto_url() != null && (coleccionUpdate.getFoto_url() != null && coleccionUpdate.getFoto_url().toLowerCase().trim().equals(coleccionActual.getFoto_url().toLowerCase().trim()))) {
+            coleccion.setFoto_url(coleccionUpdate.getFoto_url());
+
+        } // if
+
+        // Devolver el objeto con los datos modificados 
+
+        return coleccion;
+
+    }
+
 } // class

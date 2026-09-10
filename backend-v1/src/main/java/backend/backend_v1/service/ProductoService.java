@@ -1,11 +1,15 @@
 package backend.backend_v1.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import backend.backend_v1.dto.Producto.ProductoCreateDTO;
 import backend.backend_v1.dto.Producto.ProductoDTO;
 import backend.backend_v1.dto.Producto.ProductoUpdateDTO;
+import backend.backend_v1.exception.General.GeneralErrorProductionException;
 import backend.backend_v1.exception.Producto.ProductoAlreadyExistsException;
 import backend.backend_v1.exception.Producto.ProductoNotFoundException;
 import backend.backend_v1.mapper.ProductoMapper;
@@ -82,6 +86,24 @@ public class ProductoService {
 
     // Método para obtener una lista de productos por nombre de colección
 
+    @Transactional(readOnly = true)
+    public List<ProductoDTO> obtenerProductosFiltradosColeccion(String nombreColeccion) {
+        List<Producto> productos = productoRepository.findByColeccionesNombre(nombreColeccion);
+        List<ProductoDTO> productoDTOs = new ArrayList<ProductoDTO>();
+        for(Producto prod : productos) productoDTOs.add(productoMapper.toDTO(prod));
+        return productoDTOs;
+
+    }
+
     // Método para obtener todos los productos
+
+    @Transactional(readOnly = true)
+    public List<ProductoDTO> obtenerTodosLosProductos() {
+        List<Producto> productos = productoRepository.findAll();
+        List<ProductoDTO> productoDTOs = new ArrayList<ProductoDTO>();
+        for(Producto prod : productos) productoDTOs.add(productoMapper.toDTO(prod));
+        return productoDTOs;
+
+    } 
 
 } // class

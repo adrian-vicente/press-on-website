@@ -1,5 +1,7 @@
 package backend.backend_v1.controller;
 
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -58,6 +60,22 @@ public class ProductoRestController {
     @PutMapping("/modificar/{producto_id}")
     public ResponseEntity<ProductoDTO> modificarProductoExistente(@PathVariable Long producto_id, @RequestBody @Valid ProductoUpdateDTO productoUpdate) throws ProductoAlreadyExistsException, ProductoNotFoundException {
         return ResponseEntity.ok( productoService.modificarProductoExistente(producto_id, productoUpdate) );
+
+    }
+
+    // Método que permite obtener todos los productos registrads
+
+    @GetMapping
+    public ResponseEntity<List<ProductoDTO>> obtenerProductos() {
+        return ResponseEntity.ok(productoService.obtenerTodosLosProductos());
+
+    }
+
+    // Método para obtener lista de productos mediante nombre de colección
+
+    @GetMapping("/obtener/coleccion/{nombreColeccion}")
+    public ResponseEntity<List<ProductoDTO>> obtenerProductosPorColeccion(@PathVariable String nombreColeccion) {
+        return ResponseEntity.ok(productoService.obtenerProductosFiltradosColeccion(nombreColeccion));
 
     }
 

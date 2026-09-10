@@ -1,5 +1,6 @@
 package backend.backend_v1.repository;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -17,5 +18,9 @@ public interface ProductoRepository extends JpaRepository<Producto, Long>{
     // Encontrar producto a partir del nombre
 
     public Optional<Producto> findByNombre(String nombre);
+
+    // Encontrar lista de productos a partir de nombre de colección 
+
+    public List<Producto> findByColeccionesNombre(String nombre);
 
 }
