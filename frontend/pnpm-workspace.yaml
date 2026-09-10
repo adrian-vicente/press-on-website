@@ -1,0 +1,11 @@
+allowBuilds:
+  '@parcel/watcher': false
+  esbuild: false
+  lmdb: false
+  msgpackr-extract: false
+minimumReleaseAgeExclude:
+  - '@angular-devkit/architect@0.2102.24'
+  - '@angular-devkit/core@21.2.24'
+  - '@angular-devkit/schematics@21.2.24'
+  - '@angular/cli@21.2.24'
+  - '@schematics/angular@21.2.24'
