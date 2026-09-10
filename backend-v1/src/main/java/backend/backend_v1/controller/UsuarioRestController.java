@@ -1,6 +1,7 @@
 package backend.backend_v1.controller;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,6 +27,7 @@ public class UsuarioRestController {
 
     // Método para la creación de un nuevo usuario 
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/crear")
     public ResponseEntity<UsuarioDTO> crearUsuario(@RequestBody @Valid UsuarioCreateDTO usuarioCreate) throws UsuarioAlreadyExistsException {
         UsuarioDTO usuarioNuevo = usuarioService.crearUsuario(usuarioCreate);

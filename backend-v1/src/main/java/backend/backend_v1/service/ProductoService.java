@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import backend.backend_v1.dto.Producto.ProductoCreateDTO;
 import backend.backend_v1.dto.Producto.ProductoDTO;
 import backend.backend_v1.exception.Producto.ProductoAlreadyExistsException;
+import backend.backend_v1.exception.Producto.ProductoNotFoundException;
 import backend.backend_v1.mapper.ProductoMapper;
 import backend.backend_v1.model.Producto;
 import backend.backend_v1.repository.ProductoRepository;
@@ -43,6 +44,15 @@ public class ProductoService {
     // Método para modificar un producto existente
 
     // Método para buscar un producto por nombre
+
+    @Transactional(readOnly = true)
+    public ProductoDTO encontrarPorNombre(String nombre) throws ProductoNotFoundException {
+        Producto producto = productoRepository.findByNombre(nombre)
+            .orElseThrow(() -> new ProductoNotFoundException("No se ha encontrado ningún producto con el nombre: " + nombre));
+
+        return productoMapper.toDTO(producto);
+
+    }
 
     // Método para obtener una lista de productos por nombre de colección
 

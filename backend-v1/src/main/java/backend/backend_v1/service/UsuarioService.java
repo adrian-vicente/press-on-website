@@ -1,6 +1,7 @@
 package backend.backend_v1.service;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import backend.backend_v1.dto.Usuario.UsuarioCreateDTO;
 import backend.backend_v1.dto.Usuario.UsuarioDTO;
@@ -25,6 +26,7 @@ public class UsuarioService {
 
     // Método para registrar un nuevo usuario
 
+    @Transactional 
     public UsuarioDTO crearUsuario(UsuarioCreateDTO usuarioCreate) throws UsuarioAlreadyExistsException {
         if(usuarioRepository.existsByEmail(usuarioCreate.getEmail())) {
             throw new UsuarioAlreadyExistsException("El usuario con email: " + usuarioCreate.getEmail() + " ya existe.");
