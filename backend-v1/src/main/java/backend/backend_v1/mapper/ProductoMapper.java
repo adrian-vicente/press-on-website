@@ -1,5 +1,6 @@
 package backend.backend_v1.mapper;
 
+import java.lang.reflect.Field;
 import java.time.LocalDateTime;
 
 import org.springframework.context.annotation.Configuration;
@@ -84,26 +85,24 @@ public class ProductoMapper {
             producto.setFechaCreacion(productoActual.getFechaCreacion());
             producto.setFechaActualizacion(LocalDateTime.now());
 
-        // Comprobar si hay cambios en el nombre
+        // Comprobaciones sobre los datos en el dto
 
-        if( !productoActual.getNombre().toLowerCase().trim().equals( productoUpdate.getNombre().toLowerCase().trim() ) ) {
+        if(productoActual.getNombre() != null && (productoUpdate.getNombre() != null && !productoUpdate.getNombre().toLowerCase().trim().equals(productoActual.getNombre().toLowerCase().trim())) ) {
             producto.setNombre(productoUpdate.getNombre());
 
         } // if
 
-        // Comprobar si la descripción del producto ha cambiado
-
-        if( !productoActual.getDescripcion().toLowerCase().trim().equals( productoUpdate.getDescripcion().toLowerCase().trim() ) )  {
+        if(productoActual.getDescripcion() != null && (productoUpdate.getDescripcion() != null && !productoUpdate.getDescripcion().toLowerCase().trim().equals(productoActual.getDescripcion().toLowerCase().trim()))) {
             producto.setDescripcion(productoUpdate.getDescripcion());
 
         } // if
 
-        if( !productoActual.getFoto_url().toLowerCase().trim().equals( productoUpdate.getFoto_url().toLowerCase().trim() ) ) {
+        if(productoActual.getFoto_url() != null && (productoUpdate.getFoto_url() != null && !productoUpdate.getFoto_url().toLowerCase().trim().equals(productoActual.getFoto_url().toLowerCase().trim()))) {
             producto.setFoto_url(productoUpdate.getFoto_url());
 
         } // if
 
-        if( productoActual.getPrecio() != productoUpdate.getPrecio() ) {
+        if(productoActual.getPrecio() != null && (productoUpdate.getPrecio() != null && productoUpdate.getPrecio() != productoActual.getPrecio() )) {
             producto.setPrecio(productoUpdate.getPrecio());
 
         } // if
@@ -112,6 +111,6 @@ public class ProductoMapper {
 
         return producto;
 
-    } 
+    } // toEntityFromUpdateDTO
 
 } // class
