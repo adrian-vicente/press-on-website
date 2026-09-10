@@ -9,7 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 import backend.backend_v1.dto.Producto.ProductoCreateDTO;
 import backend.backend_v1.dto.Producto.ProductoDTO;
 import backend.backend_v1.dto.Producto.ProductoUpdateDTO;
-import backend.backend_v1.exception.General.GeneralErrorProductionException;
 import backend.backend_v1.exception.Producto.ProductoAlreadyExistsException;
 import backend.backend_v1.exception.Producto.ProductoNotFoundException;
 import backend.backend_v1.mapper.ProductoMapper;
@@ -30,6 +29,15 @@ public class ProductoService {
     }
 
     // Método para obtener un producto por id
+
+    @Transactional(readOnly = true)
+    public ProductoDTO obtenerProductoPorId(Long producto_id) throws ProductoNotFoundException {
+        Producto producto = productoRepository.findById(producto_id)
+            .orElseThrow(() -> new ProductoNotFoundException("No se ha encontrado ningún producto con id: " + producto_id));
+
+        return productoMapper.toDTO(producto);
+
+    }
 
     // Método para crear un nuevo producto 
 

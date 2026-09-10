@@ -1,16 +1,19 @@
 package backend.backend_v1.service;
 
 import java.util.List;
-
+import backend.backend_v1.model.Producto;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import backend.backend_v1.dto.Coleccion.ColeccionCreateDTO;
 import backend.backend_v1.dto.Coleccion.ColeccionDTO;
 import backend.backend_v1.dto.Coleccion.ColeccionUpdateDTO;
+import backend.backend_v1.dto.Producto.ProductoDTO;
 import backend.backend_v1.exception.Coleccion.ColeccionAlreadyExistsException;
 import backend.backend_v1.exception.Coleccion.ColeccionNotFoundException;
+import backend.backend_v1.exception.Producto.ProductoNotFoundException;
 import backend.backend_v1.mapper.ColeccionMapper;
+import backend.backend_v1.mapper.ProductoMapper;
 import backend.backend_v1.model.Coleccion;
 import backend.backend_v1.repository.ColeccionRepository;
 
@@ -22,10 +25,14 @@ public class ColeccionService {
 
     private final ColeccionRepository coleccionRepository;
     private final ColeccionMapper coleccionMapper;
+    private final ProductoService productoService;
+    private final ProductoMapper productoMapper;
 
-    public ColeccionService(ColeccionRepository coleccionRepository, ColeccionMapper coleccionMapper) {
+    public ColeccionService(ColeccionRepository coleccionRepository, ColeccionMapper coleccionMapper, ProductoService productoService, ProductoMapper productoMapper) {
         this.coleccionRepository = coleccionRepository;
         this.coleccionMapper = coleccionMapper;
+        this.productoService = productoService;
+        this.productoMapper = productoMapper;
 
     } 
 
@@ -82,7 +89,47 @@ public class ColeccionService {
 
     // Método que permite añadir un producto nuevo a una colección existente
 
-    
+    @Transactional
+    public boolean anyadirProductoAColeccion(Long coleccion_id, Long producto_id) throws ColeccionNotFoundException, ProductoNotFoundException {
+        
+        // Obtener la colección y el producto para añadirlos posteriormente
+        
+        Coleccion coleccion = coleccionRepository.findById(coleccion_id)
+            .orElseThrow(() -> new ColeccionNotFoundException("No se ha encontrado ninguna colección con id: " + coleccion_id));
+
+        Producto producto = productoMapper.toEntity(productoService.obtenerProductoPorId(producto_id));
+
+        // Obtener los productos de la colección actual y añadir el nuevo 
+
+        coleccion.getProductos().add(producto);
+        coleccionRepository.saveAndFlush(coleccion);
+        return true;
+
+    }
+
+    // Método para quitar un producto de una colección existente
+
+    @Transactional
+    public boolean quitarProductoDeColeccion(Long coleccion_id, Long producto_id) throws ColeccionNotFoundException, ProductoNotFoundException {
+
+        // Obtener la colección y el producto para quitarlos posteriormente 
+
+        Coleccion coleccion = coleccionRepository.findById(coleccion_id)
+            .orElseThrow(() -> new ColeccionNotFoundException("No se ha encontrado ninguna colección con id: " + coleccion_id));
+
+        // Obtener la colección con productos y quitar el que hemos obtenido a partir del id
+
+        Producto productoEliminar = coleccion.getProductos()
+            .stream()
+            .filter(p -> p.getId().equals(producto_id))
+            .findFirst()
+            .orElseThrow(() -> new ProductoNotFoundException("No se ha encontrado producto con id: " + producto_id + " en la lista."));
+
+        coleccion.getProductos().remove(productoEliminar);
+        if(!coleccion.getProductos().contains(productoEliminar)) return true;
+        else return false;
+
+    }
 
     // Método para obtener todas las colecciones
 

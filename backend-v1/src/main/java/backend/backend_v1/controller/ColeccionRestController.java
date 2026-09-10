@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.catalina.connector.Response;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,6 +19,7 @@ import backend.backend_v1.dto.Coleccion.ColeccionDTO;
 import backend.backend_v1.dto.Coleccion.ColeccionUpdateDTO;
 import backend.backend_v1.exception.Coleccion.ColeccionAlreadyExistsException;
 import backend.backend_v1.exception.Coleccion.ColeccionNotFoundException;
+import backend.backend_v1.exception.Producto.ProductoNotFoundException;
 import backend.backend_v1.service.ColeccionService;
 import jakarta.validation.Valid;
 
@@ -71,6 +73,30 @@ public class ColeccionRestController {
     @GetMapping("/obtener/coleccion/{coleccion_nombre}")
     public ResponseEntity<ColeccionDTO> obtenerColeccionNombre(@PathVariable String coleccion_nombre) throws ColeccionNotFoundException {
         return ResponseEntity.ok(coleccionService.obtenerColeccionPorNombre(coleccion_nombre));
+
+    }
+
+    // Método que permite añadir un producto nuevo a una colección existente 
+
+    @PreAuthorize("hasRole('USUARIO')")
+    @PostMapping("/{coleccion_id}/productos/{producto_id}")
+    public ResponseEntity<String> anyadirProductoAColeccion(@PathVariable Long coleccion_id, @PathVariable Long producto_id) throws ColeccionNotFoundException, ProductoNotFoundException {
+        if(coleccionService.anyadirProductoAColeccion(coleccion_id, producto_id)) {
+            return ResponseEntity.ok("El producto con id: " + producto_id + " se ha añadido correctamente a la colección.");
+
+        } else return ResponseEntity.ok("Algo ha fallado en el proceso, habla con el administrador del sistema.");
+
+    }
+
+    // Método que permite quitar un producto de una colección existente 
+    
+    @PreAuthorize("hasRole('USUARIO')")
+    @DeleteMapping("/{coleccion_id}/productos/{producto_id}")
+    public ResponseEntity<String> quitarProductoDeColeccion(@PathVariable Long coleccion_id, @PathVariable Long producto_id) throws ColeccionNotFoundException, ProductoNotFoundException {
+        if(coleccionService.quitarProductoDeColeccion(coleccion_id, producto_id)) {
+            return ResponseEntity.ok("El producto con id: " + producto_id + " se ha quitado correctamente de la colección");
+
+        } else return ResponseEntity.ok("Algo ha fallado en el proceso para eliminar el producto de la colección, contacta con el administrador del sistema.");
 
     }
 
