@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import backend.backend_v1.config.ValidadorConfig;
 import backend.backend_v1.dto.Producto.ProductoCreateDTO;
 import backend.backend_v1.dto.Producto.ProductoDTO;
+import backend.backend_v1.dto.Producto.ProductoUpdateDTO;
 import backend.backend_v1.model.Producto;
 
 @Configuration 
@@ -20,7 +21,7 @@ public class ProductoMapper {
             if(ValidadorConfig.validarIdentificador(dto.getId())) {
                 producto.setId(dto.getId());
 
-            } // if
+            } else return null;
 
             if(ValidadorConfig.validarFecha(dto.getFechaCreacion())) {
                 producto.setFechaCreacion(dto.getFechaCreacion());
@@ -76,5 +77,41 @@ public class ProductoMapper {
     }
 
     // Método de conversión de update dto a entidad
+
+    public Producto toEntityFromUpdateDTO(ProductoDTO productoActual, ProductoUpdateDTO productoUpdate) {
+        Producto producto = new Producto();
+            producto.setId(productoActual.getId());
+            producto.setFechaCreacion(productoActual.getFechaCreacion());
+            producto.setFechaActualizacion(LocalDateTime.now());
+
+        // Comprobar si hay cambios en el nombre
+
+        if( !productoActual.getNombre().toLowerCase().trim().equals( productoUpdate.getNombre().toLowerCase().trim() ) ) {
+            producto.setNombre(productoUpdate.getNombre());
+
+        } // if
+
+        // Comprobar si la descripción del producto ha cambiado
+
+        if( !productoActual.getDescripcion().toLowerCase().trim().equals( productoUpdate.getDescripcion().toLowerCase().trim() ) )  {
+            producto.setDescripcion(productoUpdate.getDescripcion());
+
+        } // if
+
+        if( !productoActual.getFoto_url().toLowerCase().trim().equals( productoUpdate.getFoto_url().toLowerCase().trim() ) ) {
+            producto.setFoto_url(productoUpdate.getFoto_url());
+
+        } // if
+
+        if( productoActual.getPrecio() != productoUpdate.getPrecio() ) {
+            producto.setPrecio(productoUpdate.getPrecio());
+
+        } // if
+
+        // Devolver el producto con la información actualizada
+
+        return producto;
+
+    } 
 
 } // class

@@ -5,6 +5,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import backend.backend_v1.dto.Producto.ProductoCreateDTO;
 import backend.backend_v1.dto.Producto.ProductoDTO;
+import backend.backend_v1.dto.Producto.ProductoUpdateDTO;
 import backend.backend_v1.exception.Producto.ProductoAlreadyExistsException;
 import backend.backend_v1.exception.Producto.ProductoNotFoundException;
 import backend.backend_v1.mapper.ProductoMapper;
@@ -42,6 +43,31 @@ public class ProductoService {
     } // crearProducto()
 
     // Método para modificar un producto existente
+
+    @Transactional 
+    public ProductoDTO modificarProductoExistente(Long productoOriginal_id, ProductoUpdateDTO productoUpdate) throws ProductoAlreadyExistsException, ProductoNotFoundException {
+        
+        // Obtener el producto original a partir del id pasado cómo parámetro
+        
+        Producto productoOriginal = productoRepository.findById(productoOriginal_id)
+            .orElseThrow(() -> new ProductoNotFoundException("No se ha encontrado ningún producto con el id: " + productoOriginal_id));
+
+        // Comprobar si existe un producto con el nombre que se quiere utilizada
+
+        if(productoRepository.existsByNombre(productoUpdate.getNombre())) {
+            throw new ProductoAlreadyExistsException("Ya existe un producto con el nombre: " + productoUpdate.getNombre());
+
+        } // if
+
+        // Obtener la entidad con la información modificada a través del mapper
+
+        Producto productoModificado = productoMapper.toEntityFromUpdateDTO(productoMapper.toDTO(productoOriginal), productoUpdate);
+
+        // Guardar y actualizar la información del producto devolviendo el DTO modificado
+
+        return productoMapper.toDTO( productoRepository.saveAndFlush(productoModificado) );
+
+    }
 
     // Método para buscar un producto por nombre
 
