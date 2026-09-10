@@ -7,12 +7,13 @@ import { ProductoDetailComponent } from './components/productos/producto-detail/
 import { ProductoFormComponent } from './components/productos/producto-form/producto-form.component';
 import { ProductoListComponent } from './components/productos/producto-list/producto-list.component';
 import { DashboardComponent } from './components/admin/dashboard/dashboard.component';
+import { Login } from './components/admin/login/login';
 
 export const routes: Routes = [
 
   // Redirección a página principal
 
-  { path: '', redirectTo: 'home' },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
 
   // Declaración de rutas para componente productos
@@ -29,6 +30,7 @@ export const routes: Routes = [
 
   // Declaración de rutas para componente usuario
 
-  { path: 'admin-dashboard', component: DashboardComponent}
+  { path: 'admin-dashboard', component: DashboardComponent},
+  { path: 'admin-login', component: Login}
 
 ];
