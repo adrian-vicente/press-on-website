@@ -1,1 +1,17 @@
 <p>login works!</p>
+
+<div class="login-dashboard">
+
+  <form>
+    <label for="email-input">Introduce tu correo electrónico: </label>
+    <input type="text" name="email-input" placeholder="Introduce tu email." [(ngModel)]="email">
+
+    <label for="password-input">Introduce la password: </label>
+    <input type="password" name="password-input" placeholder="Introduce la contraseña" [(ngModel)]="password">
+
+    <br>
+    <button type="submit" (click)="iniciarSesion()">Iniciar sesión</button>
+
+  </form>
+
+</div>

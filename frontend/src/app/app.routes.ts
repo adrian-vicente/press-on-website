@@ -8,6 +8,7 @@ import { ProductoFormComponent } from './components/productos/producto-form/prod
 import { ProductoListComponent } from './components/productos/producto-list/producto-list.component';
 import { DashboardComponent } from './components/admin/dashboard/dashboard.component';
 import { Login } from './components/admin/login/login';
+import { guardGuard } from './guards/guard.guard';
 
 export const routes: Routes = [
 
@@ -30,7 +31,13 @@ export const routes: Routes = [
 
   // Declaración de rutas para componente usuario
 
-  { path: 'admin-dashboard', component: DashboardComponent},
-  { path: 'admin-login', component: Login}
+  { path: 'admin-dashboard',
+    component: DashboardComponent,
+    canActivate: [guardGuard]
+  },
+  {
+    path: 'admin-login',
+    component: Login
+  }
 
 ];

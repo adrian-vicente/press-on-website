@@ -21,4 +21,32 @@ export class AuthServiceService {
 
   }
 
+  // Método para guardar el token en localStorage
+
+  public guardarToken(token: string): void {
+    localStorage.setItem('token', token);
+
+  }
+
+  // Método para obtener token guardado
+
+  public obtenerToken(): string | null {
+    return localStorage.getItem('token');
+
+  }
+
+  // Método para saber si el usuario está autenticado
+
+  public estaAutenticado(): boolean {
+    return this.obtenerToken != null;
+
+  }
+
+  // Método para cerrar sesión en la aplicación
+
+  public logout(): void {
+    localStorage.removeItem('token');
+
+  }
+
 } // class
