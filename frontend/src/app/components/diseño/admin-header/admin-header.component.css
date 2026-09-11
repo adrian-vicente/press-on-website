@@ -1,0 +1,71 @@
+
+/* Estilos globales */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+/* Estilos para el contenedor general */
+
+div.admin-header {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  border: 1px solid red;
+
+}
+
+/* Estilo para indicar la posición dentro del grid en el contenedor del logotipo */
+
+div.logo {
+  grid-column: 1;
+  border: 1px solid blue;
+}
+
+/* Estilos para el logotipo */
+
+div.logo img {
+  width: 120px;
+  margin-left: 4rem;
+  border: 1px solid #FFF;
+  border-radius: 5rem;
+}
+
+/* Indicar posición dentro del grid para contenedor de enlaces */
+
+div.enlaces {
+  grid-column: 2;
+  border: 1px solid blue;
+}
+
+/* Estilos para el contenedor que contiene la lista en los enlaces */
+
+div.enlaces ul {
+  list-style: none;
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+/* Estilos para los elementos de la lista */
+
+div.enlaces ul li {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  flex-direction: row;
+  margin-right: 1rem;
+}
+
+/* Estilos al pasar el ratón por encima de los elementos de la lista */
+
+div.enlaces ul li:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
