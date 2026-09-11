@@ -49,7 +49,8 @@ export class AuthServiceService {
   // Método para saber si el usuario está autenticado
 
   public estaAutenticado(): boolean {
-    return this.obtenerAccessToken !== null && this.obtenerRefreshToken !== null;
+    return this.obtenerAccessToken() !== null &&
+      this.obtenerRefreshToken() !== null;
 
   }
 

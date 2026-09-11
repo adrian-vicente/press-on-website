@@ -30,7 +30,6 @@ public class UsuarioRestController {
 
     // Método para la creación de un nuevo usuario 
 
-    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/crear")
     public ResponseEntity<UsuarioDTO> crearUsuario(@RequestBody @Valid UsuarioCreateDTO usuarioCreate) throws UsuarioAlreadyExistsException {
         UsuarioDTO usuarioNuevo = usuarioService.crearUsuario(usuarioCreate);
