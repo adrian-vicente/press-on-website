@@ -7,8 +7,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import backend.backend_v1.dto.Login.AuthResponseDTO;
 import backend.backend_v1.dto.Usuario.UsuarioCreateDTO;
 import backend.backend_v1.dto.Usuario.UsuarioDTO;
+import backend.backend_v1.exception.General.GeneralErrorProductionException;
+import backend.backend_v1.exception.Usuario.UsernameNotFoundException;
 import backend.backend_v1.exception.Usuario.UsuarioAlreadyExistsException;
 import backend.backend_v1.service.UsuarioService;
 import jakarta.validation.Valid;

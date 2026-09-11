@@ -51,7 +51,7 @@ export class Login implements OnInit {
 
     this.authService.login(loginRequest).subscribe({
       next: (authResponse) => {
-        this.authService.guardarToken(authResponse.token);
+        this.authService.guardarTokens(authResponse);
         console.log("El inicio de sesión se ha ejecutado correctamente.");
         this.router.navigate(['/admin-dashboard']);
       },

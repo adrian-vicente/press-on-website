@@ -1,6 +1,5 @@
 package backend.backend_v1.dto.Login;
 
-public record AuthResponseDTO(
-    String accessToken,
+public record RefreshTokenRequestDTO (
     String refreshToken
 ) {}

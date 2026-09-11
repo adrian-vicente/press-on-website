@@ -8,7 +8,7 @@ export const guardGuard: CanActivateFn = (route, state) => {
 
   const authService = inject(AuthServiceService);
   const router = inject(Router);
-  const token: string | null = authService.obtenerToken();
+  const token: string | null = authService.obtenerAccessToken();
 
   // Comprobaciones sobre el token
 

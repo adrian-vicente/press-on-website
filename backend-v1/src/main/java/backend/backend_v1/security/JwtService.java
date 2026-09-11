@@ -1,10 +1,8 @@
 package backend.backend_v1.security;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
-
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
@@ -30,11 +28,12 @@ public class JwtService {
 
     // Método que permite generar el token para el usuario 
 
-    public String generarToken(UserDetails userDetails) {
+    public String generarAccessToken(UserDetails userDetails) {
         return Jwts.builder()
             .subject(userDetails.getUsername())
+            .claim("type", "access")
             .issuedAt(new Date())
-            .expiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60))
+            .expiration(new Date(System.currentTimeMillis() + 1000 * 60 * 15))
             .signWith(getSigningKey())
             .compact();
 
@@ -49,6 +48,18 @@ public class JwtService {
         */
 
     } // generateToken
+
+    // Método que permite generar el refresh token 
+
+    public String generarRefreshToken(UserDetails userDetails) {
+        return Jwts.builder()
+            .subject(userDetails.getUsername())
+            .claim("type", "refresh")
+            .issuedAt(new Date())
+            .expiration(new Date(System.currentTimeMillis() + 1000L * 60 * 60 * 24 * 7))
+            .signWith(getSigningKey())
+            .compact();
+    }
 
     // Método para obtener el usuario a partir de un token 
 
@@ -75,6 +86,18 @@ public class JwtService {
     public boolean tokenEsValido(String token, UserDetails userDetails) {
         String username = extraerUsername(token);
         return username.equals(userDetails.getUsername()) && !tokenHaExpirado(token);
+
+    }
+
+    // Método para saber si el token es de tipo refresh
+
+    public boolean esRefreshToken(String token) {
+        String tipo = extraerClaims(
+            token, 
+            claims -> claims.get("type", String.class)
+        );
+
+        return "refresh".equals(tipo);
 
     }
 
