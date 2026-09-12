@@ -33,16 +33,32 @@ public class SecurityConfig {
             .csrf(csrf -> csrf.disable())
             .sessionManagement(session -> 
                 session.sessionCreationPolicy(
-                    SessionCreationPolicy.STATELESS
+                    SessionCreationPolicy.IF_REQUIRED
                 )
             )
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/")
+
+                // Inicio de sesión administrador público 
+
+                .requestMatchers("/api/auth/login").permitAll()
+                .requestMatchers("/api/auth/logout").authenticated()
+
+                // Rutas públicas en la aplicación
+
+                .requestMatchers("/api/productos/**").permitAll()
+                .requestMatchers("/api/colecciones/**").permitAll()
+
+                // Rutas administrativas dentro de la petición 
+
+                .requestMatchers("/api/usuarios/crear").permitAll()
+                .requestMatchers("/api/usuarios/**").authenticated()
+                .requestMatchers("/api/usuarios/admin/**").authenticated()
+
+                // Resto de peticiones públicas 
+
+                .anyRequest().permitAll()
+
             );
-
-            // Inicio de sesión por tokens de momento en desarrollo.
-
-            // .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
 

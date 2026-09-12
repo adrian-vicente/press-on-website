@@ -2,6 +2,7 @@ package backend.backend_v1.dto.Usuario;
 
 import java.time.LocalDateTime;
 
+import backend.backend_v1.model.Rol;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -22,7 +23,8 @@ public class UsuarioCreateDTO {
 
     private String apellidos;
     private String fotoPerfil_url;
-   
+    private Rol rol;
+
     @NotBlank(message = "El usuario debe de tener un mail.")
     private String email;
 

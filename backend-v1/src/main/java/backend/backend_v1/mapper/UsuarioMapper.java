@@ -10,6 +10,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import backend.backend_v1.dto.Usuario.UsuarioCreateDTO;
 import backend.backend_v1.dto.Usuario.UsuarioDTO;
+import backend.backend_v1.model.Rol;
 import backend.backend_v1.model.Usuario;
 
 @Configuration 
@@ -45,7 +46,8 @@ public class UsuarioMapper {
             usuario.setApellidos(dto.getApellidos());
             usuario.setEmail(dto.getEmail());
             usuario.setFotoPerfil_url(dto.getFotoPerfil_url());
-        
+            usuario.setRol(Rol.valueOf(dto.getRol().name().toUpperCase()));
+
         return usuario;
     }
 
@@ -72,6 +74,7 @@ public class UsuarioMapper {
             usuarioDTO.setApellidos(usuario.getApellidos());
             usuarioDTO.setFotoPerfil_url(usuario.getFotoPerfil_url());
             usuarioDTO.setEmail(usuario.getEmail());
+            usuarioDTO.setRol(Rol.valueOf(usuario.getRol().name().toUpperCase()));
 
         return usuarioDTO;
 
@@ -87,6 +90,7 @@ public class UsuarioMapper {
             usuario.setEmail(usuarioCreate.getEmail());
             usuario.setPassword( passwordEncoder.encode(usuarioCreate.getPassword()) );
             usuario.setFechaCreacion(LocalDateTime.now());
+            usuario.setRol(Rol.valueOf(usuarioCreate.getRol().name().toUpperCase()));
 
         return usuario;
 

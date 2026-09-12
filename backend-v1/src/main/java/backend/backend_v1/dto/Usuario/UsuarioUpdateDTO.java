@@ -3,6 +3,7 @@ package backend.backend_v1.dto.Usuario;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+import backend.backend_v1.model.Rol;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,5 +25,6 @@ public class UsuarioUpdateDTO {
     private String password;
     private LocalDateTime fechaNacimiento;
     private LocalDateTime fechaActualizacion;
+    private Rol rol;
 
 } // class
