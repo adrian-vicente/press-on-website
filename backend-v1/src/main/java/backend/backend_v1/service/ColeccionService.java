@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import backend.backend_v1.dto.Coleccion.ColeccionCreateDTO;
 import backend.backend_v1.dto.Coleccion.ColeccionDTO;
 import backend.backend_v1.dto.Coleccion.ColeccionUpdateDTO;
-import backend.backend_v1.dto.Producto.ProductoDTO;
 import backend.backend_v1.exception.Coleccion.ColeccionAlreadyExistsException;
 import backend.backend_v1.exception.Coleccion.ColeccionNotFoundException;
 import backend.backend_v1.exception.Producto.ProductoNotFoundException;

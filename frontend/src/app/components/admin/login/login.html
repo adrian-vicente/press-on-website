@@ -1,1 +1,17 @@
 <p>login works!</p>
+
+<!-- Formulario para iniciar sesión -->
+
+<div class="admin-login-form">
+  <form (ngSubmit)="iniciarSesion()">
+    <div class="email">
+      <label for="emailInput">Introduce tu correo electrónico: </label>
+      <input id="emailInput" type="email" name="email" [(ngModel)]="loginRequest.email" placeholder="Introduce tu email a continuación">
+    </div>
+    <div class="password">
+      <label for="passwordInput">Introduce la contraseña de tu cuenta: </label>
+      <input id="passwordInput" type="password" name="password" [(ngModel)]="loginRequest.password" placeholder="Introduce la password a continuación">
+    </div>
+    <button type="submit">Iniciar sesión</button>
+  </form>
+</div>

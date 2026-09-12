@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Usuario } from '../../model/Usuario/Usuario';
+import { LoginRequest } from '../../model/Login/LoginRequest';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,11 @@ export class AuthServiceService {
   constructor(private http: HttpClient) { }
 
   // Método que permite iniciar sesión en la app
+
+  public iniciarSesion(loginRequest: LoginRequest): Observable<string>{
+    return this.http.post<string>(`${this.apiUrl}/login`, loginRequest);
+
+  }
 
   // Método que permite cerrar sessión en la app
 
