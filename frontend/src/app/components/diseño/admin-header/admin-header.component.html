@@ -16,21 +16,31 @@
     <!-- Lista de enlaces -->
 
     <ul>
-      <li>
-        <img src="./Icons/account-icon.svg" alt="Icono para editar la información de la cuenta.">
-        Editar perfil
-      </li>
-      <li>
-        <img src="/Icons/order-history-icon.svg" alt="Icono para acceder al historial de pedidos ">
-        Historial de pedidos
-      </li>
-      <li>
-        <img src="/Icons/shopping-icon.svg" alt="Icono para volver a la tienda. Salir del admin dashboard.">
-        Volver a la tienda
-      </li>
+      <a [href]="enlaceEditarPerfil">
+        <li>
+          <img src="./Icons/account-icon.svg" alt="Icono para editar la información de la cuenta.">
+          Editar perfil
+        </li>
+      </a>
+      <a [href]="enlaceHistorialPedidos">
+        <li>
+          <img src="/Icons/order-history-icon.svg" alt="Icono para acceder al historial de pedidos ">
+          Historial de pedidos
+        </li>
+      </a>
+      <a [href]="enlaceHome">
+        <li>
+          <img src="/Icons/shopping-icon.svg" alt="Icono para volver a la tienda. Salir del admin dashboard.">
+          Volver a la tienda
+        </li>
+      </a>
     </ul>
 
     <!-- Texto de bienvenida / explicativo al dashboard -->
+
+    <div class="textoBienvenida">
+      <p>Bienvenida de nuevo {{ usuarioAutenticado?.nombre }} </p>
+    </div>
 
   </div>
 

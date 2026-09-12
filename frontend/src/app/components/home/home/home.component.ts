@@ -16,8 +16,11 @@ export class HomeComponent {
 
   constructor(public router: Router) {}
 
-  // Declaración de variables
+  // Método para redirigir al admin login
 
-  public dashboard_url: string = "/admin-login";
+  public redirigirAdminDashboard(): void {
+    this.router.navigate(['/admin-login']);
+
+  }
 
 }
