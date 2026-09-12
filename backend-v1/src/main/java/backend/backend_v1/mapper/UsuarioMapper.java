@@ -1,13 +1,9 @@
 package backend.backend_v1.mapper;
 
 import backend.backend_v1.config.ValidadorConfig;
-
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
-
 import backend.backend_v1.dto.Usuario.UsuarioCreateDTO;
 import backend.backend_v1.dto.Usuario.UsuarioDTO;
 import backend.backend_v1.model.Rol;

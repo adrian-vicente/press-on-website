@@ -1,24 +1,35 @@
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
 import { AuthServiceService } from '../services/auth/auth-service.service';
+import { catchError, map, of } from 'rxjs';
 
 export const guardGuard: CanActivateFn = (route, state) => {
 
   // Inyección de dependencias
 
-  const authService = inject(AuthServiceService);
-  const router = inject(Router);
-  const token: string | null = authService.obtenerAccessToken();
+  const authService: AuthServiceService = inject(AuthServiceService);
+  const router: Router = inject(Router);
 
-  // Comprobaciones sobre el token
+  // Obtener el usuario autenticado y aplicar redirecciones
 
-  if(token) {
-    return true;
+  return authService.obtenerUsuarioAutenticado().pipe(
+    map(usuario => {
+      if(usuario.rol === 'ADMIN') {
+        return true;
 
-  } // if
+      } // if
 
-  // En caso de no tener valor del token redirigir a página principal
+      return router.createUrlTree(['/admin-login']);
 
-  return router.createUrlTree(['/home']);
+    }),
+
+    catchError(() => {
+      return of(
+        router.createUrlTree(['/admin-login'])
+      );
+
+    })
+
+  );
 
 };

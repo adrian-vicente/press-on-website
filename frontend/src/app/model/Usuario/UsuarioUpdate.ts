@@ -7,4 +7,5 @@ export interface UsuarioUpdate {
   password: string;
   fechaCreacion: Date;
   fechaActualizacion: Date;
+  rol: string;
 }

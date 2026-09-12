@@ -1,5 +1,7 @@
 package backend.backend_v1.security;
 
+import java.util.List;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -10,6 +12,9 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 @Configuration
 @EnableMethodSecurity 
@@ -42,6 +47,7 @@ public class SecurityConfig {
 
                 .requestMatchers("/api/auth/login").permitAll()
                 .requestMatchers("/api/auth/logout").authenticated()
+                .requestMatchers("/api/auth/me").authenticated()
 
                 // Rutas públicas en la aplicación
 

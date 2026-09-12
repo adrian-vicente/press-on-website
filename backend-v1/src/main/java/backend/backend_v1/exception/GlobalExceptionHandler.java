@@ -1,19 +1,16 @@
 package backend.backend_v1.exception;
 
-import org.apache.catalina.connector.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-
 import backend.backend_v1.exception.Coleccion.ColeccionAlreadyExistsException;
 import backend.backend_v1.exception.Coleccion.ColeccionNotFoundException;
 import backend.backend_v1.exception.General.GeneralErrorProductionException;
 import backend.backend_v1.exception.Producto.ProductoAlreadyExistsException;
 import backend.backend_v1.exception.Producto.ProductoNotFoundException;
 import backend.backend_v1.exception.Usuario.UsuarioAlreadyExistsException;
-import backend.backend_v1.model.Coleccion;
 
 @RestControllerAdvice 
 public class GlobalExceptionHandler {

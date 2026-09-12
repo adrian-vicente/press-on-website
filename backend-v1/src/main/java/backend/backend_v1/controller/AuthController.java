@@ -1,15 +1,17 @@
 package backend.backend_v1.controller;
 
-import org.apache.catalina.connector.Response;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import backend.backend_v1.dto.Login.LoginRequestDTO;
+import backend.backend_v1.dto.Usuario.UsuarioDTO;
+import backend.backend_v1.exception.Usuario.UsernameNotFoundException;
 import backend.backend_v1.security.AuthService;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
@@ -42,6 +44,15 @@ public class AuthController {
         authService.cerrarSesion(session);
         return ResponseEntity
             .ok("La sesión se ha cerrado correctamente.");
+    }
+
+    // Método para obtener usuario a partir de la cookie de sesión
+
+    @GetMapping("/me")
+    public ResponseEntity<UsuarioDTO> me(HttpSession session) throws UsernameNotFoundException, RuntimeException {
+        return ResponseEntity
+            .ok(authService.obtenerUsuarioAutenticado(session));
+
     }
 
 } // class

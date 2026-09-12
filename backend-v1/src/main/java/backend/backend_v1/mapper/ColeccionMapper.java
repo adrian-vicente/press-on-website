@@ -10,16 +10,10 @@ import backend.backend_v1.dto.Coleccion.ColeccionDTO;
 import backend.backend_v1.dto.Coleccion.ColeccionUpdateDTO;
 import backend.backend_v1.model.Coleccion;
 
-@Configuration 
+@Configuration
 public class ColeccionMapper {
 
     // Método de conversión de entidad a dto
-
-    private final ValidadorConfig validadorConfig;
-
-    ColeccionMapper(ValidadorConfig validadorConfig) {
-        this.validadorConfig = validadorConfig;
-    }
 
     public Coleccion toEntity(ColeccionDTO coleccionDTO) {
         Coleccion coleccion = new Coleccion();

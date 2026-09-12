@@ -18,7 +18,6 @@ import backend.backend_v1.dto.Producto.ProductoDTO;
 import backend.backend_v1.dto.Producto.ProductoUpdateDTO;
 import backend.backend_v1.exception.Producto.ProductoAlreadyExistsException;
 import backend.backend_v1.exception.Producto.ProductoNotFoundException;
-import backend.backend_v1.model.Producto;
 import backend.backend_v1.service.ProductoService;
 import jakarta.validation.Valid;
 
