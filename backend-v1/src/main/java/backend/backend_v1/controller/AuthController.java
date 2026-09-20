@@ -30,6 +30,7 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody @Valid LoginRequestDTO loginRequest, HttpSession session) throws BadCredentialsException {
+        System.out.println("Método ejecutado");
         authService.iniciarSesion(loginRequest.email(), loginRequest.password(), session);
         return ResponseEntity
             .ok("Se ha iniciado sesión correctamente.");

@@ -29,21 +29,22 @@ export class Login {
   // Método que permite iniciar sesión en la aplicación
 
   public iniciarSesion(): void {
-    if(this.loginRequest === null) {
-      alert("Debes rellenar los campos para iniciar sesión");
+    if(!this.loginRequest.email || !this.loginRequest.password) {
+      alert('Debes rellenar los campos para iniciar sesión');
+      return;
 
-    } else {
-      this.authService.iniciarSesion(this.loginRequest).subscribe({
-        next: (mensaje_api) => {
-          console.log(mensaje_api);
-          this.router.navigate(['/admin-dashboard'])
-        },
-        error: (error_api) => {
-          console.log(error_api.message);
-        }
-      });
+    } // if
 
-    } // if - else
+    this.authService.iniciarSesion(this.loginRequest).subscribe({
+      next: (mensaje_api) => {
+        console.log("Inicio de sesión correcto", mensaje_api);
+        this.router.navigate(['/admin-dashboard']);
+      },
+      error: (error_api) => {
+        console.log("Se ha producido un error en el login: " + error_api.message);
+
+      }
+    });
 
   }
 
