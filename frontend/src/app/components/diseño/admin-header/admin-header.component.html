@@ -1,1 +1,50 @@
-<p>admin-header works</p>
+
+<!-- Barra de navegación-->
+
+<div class="navbar">
+
+  <!-- Bloque para el logotipo -->
+
+  <div class="logotipo">
+    <img src="/Logo/logo-nailsbyandrea.jpg">
+  </div>
+
+  <!-- Bloque de enlaces 1 -->
+
+  <div class="enlaces">
+    <ul>
+      <li>
+        <img src="/Icons/account-icon.svg" class="img-icon">
+        <a [href]="edit_profile">Modificar perfil</a>
+      </li>
+      <li>
+        <img src="/Icons/order-history-icon.svg" class="img-icon">
+        <a>Ver historial de pedidos</a>
+      </li>
+      <li>
+        <img src="/Icons/shopping-icon.svg" class="img-icon">
+        <a [href]="home_url">Volver a la tienda</a>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Bloque de botones -->
+
+  <div class="botones">
+
+    <!-- Botón para ver las estadísticas de la tienda-->
+
+    <button type="button">
+      <img src="/Icons/check-stats-icon.svg" class="img-icon">
+      Ver estadísticas de la tienda
+    </button>
+
+    <!-- Botón para cerrar sesión cómo administrador -->
+
+    <button type="button">
+      <img src="/Icons/logout-icon.svg" class="img-icon">
+      Cerrar sesión cómo administrador
+    </button>
+  </div>
+
+</div>

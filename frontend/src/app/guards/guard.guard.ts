@@ -19,13 +19,13 @@ export const guardGuard: CanActivateFn = (route, state) => {
 
       } // if
 
-      return router.createUrlTree(['/admin-login']);
+      return router.createUrlTree(['/home']);
 
     }),
 
     catchError(() => {
       return of(
-        router.createUrlTree(['/admin-login'])
+        router.createUrlTree(['/home'])
       );
 
     })

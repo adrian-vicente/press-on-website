@@ -5,76 +5,120 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: var(--fuente-principal);
 }
+
+/* Reiniciar valores */
 
 html, body {
   margin: 0;
   padding: 0;
 }
 
-/* Estilos para el contenedor general */
+/* Estilos para la barra de navegación */
 
-div.admin-header {
+div.navbar {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  border: 1px solid red;
+  grid-template-columns: 15% repeat(2, 42.5%);
+  background-color: var(--color-principal);
+  padding: 1rem;
 
-}
+  /* Estilo para dejar el navbar fijo */
 
-/* Estilo para indicar la posición dentro del grid en el contenedor del logotipo */
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  margin: 0;
+  width: 100%;
 
-div.logo {
-  grid-column: 1;
-  border: 1px solid blue;
 }
 
 /* Estilos para el logotipo */
 
-div.logo img {
-  width: 120px;
-  margin-left: 4rem;
-  border: 1px solid #FFF;
-  border-radius: 5rem;
+div.navbar .logotipo {
+  grid-column: 1;
 }
 
-/* Indicar posición dentro del grid para contenedor de enlaces */
-
-div.enlaces {
-  grid-column: 2;
-  border: 1px solid blue;
-  margin-top: 1rem;
+div.navbar .logotipo img {
+  width: 150px;
+  height: auto;
+  border: 1px solid;
+  border-radius: 50rem;
+  margin-left: 2rem;
 }
 
-/* Estilos para el contenedor que contiene la lista en los enlaces */
+/* Estilo para el contenedor de enlaces */
 
-div.enlaces ul {
-  list-style: none;
+div.navbar .enlaces {
   display: flex;
-  flex-direction: row-reverse;
+  align-items: center;
+  justify-content: center;
 }
 
-/* Estilos para los elementos de la lista */
+/* Estilo para la lista desordenada */
 
-div.enlaces ul li {
+div.navbar .enlaces ul {
+  display: flex;
+  gap: 2rem;
+  list-style-type: none;
+}
+
+/* Estilo para centrar imágen + enlace de la lista */
+
+div.navbar .enlaces ul li {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* Separar un poco el icono del texto */
+
+  gap: 0.75rem;
+
+}
+
+/* Estilo para los elementos de la lista */
+
+div.navbar .enlaces ul li a {
+  font-size: 1rem;
+  color: var(--color-secundario);
+}
+
+/* Estilo para los enlaces (<a>) */
+
+a, a:active, a:focus, a:visited {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* Estilo al pasar el ratón por encima de los enlaces */
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Estilo para el contenedor de botones */
+
+div.navbar .botones {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+/* Estilo para los propios botones */
+
+div.navbar .botones button {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 1rem;
-  flex-direction: row;
-  margin-right: 1rem;
+  padding: 1rem;
+  border: 2px solid var(--color-secundario);
+  border-radius: 5rem;
   font-size: 1rem;
+  background-color: var(--color-principal);
+  color: var(--color-secundario);
 }
 
-/* Estilos al pasar el ratón por encima de los elementos de la lista */
-
-div.enlaces ul li:hover {
-  text-decoration: underline;
+div.navbar .botones button:hover {
   cursor: pointer;
-}
-
-/* Estilos generales para los enlaces */
-
-a {
-  text-decoration: none;
-  color: #262626;
 }

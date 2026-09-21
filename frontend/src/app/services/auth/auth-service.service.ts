@@ -37,7 +37,7 @@ export class AuthServiceService {
       withCredentials: true
     });
 
-    console.log({usuario});
+    console.log(usuario);
     return usuario;
 
   }

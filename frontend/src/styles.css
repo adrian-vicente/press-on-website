@@ -8,5 +8,10 @@
 
 :root {
   --fuente-principal: 'Poppins';
+  --color-principal: #262626;
+  --color-secundario: #FFFFFF;
+}
 
+body, html {
+  background-color: var(--color-principal);
 }

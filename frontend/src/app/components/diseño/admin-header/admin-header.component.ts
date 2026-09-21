@@ -1,10 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, inject } from '@angular/core';
-import { Usuario } from '../../../model/Usuario/Usuario';
-import { AuthResponse } from '../../../model/Login/AuthResponse';
-import { Route, Router } from '@angular/router';
-import { AuthServiceService } from '../../../services/auth/auth-service.service';
-import { UsuarioServiceService } from '../../../services/usuario/usuario-service.service';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-admin-header',
@@ -14,5 +9,12 @@ import { UsuarioServiceService } from '../../../services/usuario/usuario-service
   standalone: true
 })
 export class AdminHeaderComponent {
+
+  // Inyección de dependencias
+
+  // Declaración de variables
+
+  public home_url: string = "/home";
+  public edit_profile: string = "/admin-edit-profile";
 
 } // class
