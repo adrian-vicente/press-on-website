@@ -17,12 +17,14 @@ export class AuthServiceService {
   // Método que permite iniciar sesión en la app
 
   public iniciarSesion(loginRequest: LoginRequest): Observable<string>{
-    return this.http.post<string>(
+    return this.http.post(
       `${this.apiUrl}/login`,
       loginRequest,
       {
-        withCredentials: true
-      });
+        withCredentials: true,
+        responseType: 'text'
+      }
+    );
 
   }
 
@@ -31,11 +33,12 @@ export class AuthServiceService {
   // Método que permite obtener usuario autenticado
 
   public obtenerUsuarioAutenticado(): Observable<Usuario> {
-    return this.http.get<Usuario>(
-      `${this.apiUrl}/me`,
-      {
-        withCredentials: true
-      });
+    let usuario: Observable<Usuario> = this.http.get<Usuario>(`${this.apiUrl}/me`, {
+      withCredentials: true
+    });
+
+    console.log({usuario});
+    return usuario;
 
   }
 
