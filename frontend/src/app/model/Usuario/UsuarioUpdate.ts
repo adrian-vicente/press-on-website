@@ -1,6 +1,7 @@
 export interface UsuarioUpdate {
   id: number;
   nombre: string;
+  apellidos: string;
   descripcion: string;
   fotoPerfil_url: string;
   email: string;

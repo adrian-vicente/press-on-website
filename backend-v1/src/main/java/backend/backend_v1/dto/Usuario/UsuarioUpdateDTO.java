@@ -17,11 +17,12 @@ public class UsuarioUpdateDTO {
 
     private Long id;
     private String nombre;
+    private String apellidos;
     private String descripcion;
     private String fotoPerfil_url;
     private String email;
     private String password;
-    private LocalDateTime fechaNacimiento;
+    private LocalDateTime fechaCreacion;
     private LocalDateTime fechaActualizacion;
     private Rol rol;
 
