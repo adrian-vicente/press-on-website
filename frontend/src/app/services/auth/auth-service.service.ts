@@ -33,13 +33,9 @@ export class AuthServiceService {
   // Método que permite obtener usuario autenticado
 
   public obtenerUsuarioAutenticado(): Observable<Usuario> {
-    let usuario: Observable<Usuario> = this.http.get<Usuario>(`${this.apiUrl}/me`, {
+    return this.http.get<Usuario>(`${this.apiUrl}/me`, {
       withCredentials: true
-    });
-
-    console.log(usuario);
-    return usuario;
-
+    })
   }
 
 } // class

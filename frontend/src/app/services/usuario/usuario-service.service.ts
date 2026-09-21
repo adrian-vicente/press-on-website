@@ -17,11 +17,6 @@ export class UsuarioServiceService {
 
   private apiUrl: string = "http://localhost:8080/api/usuarios";
 
-  // Método para obtener usuario autenticado
-
-  public obtenerUsuarioAutenticado(token_request: AuthResponse): Observable<Usuario> {
-    return this.http.post<Usuario>(`${this.apiUrl}/obtener/perfil`, token_request);
-
-  }
+  // Método para modificar los datos de un usuario
 
 } // class
