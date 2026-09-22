@@ -4,4 +4,39 @@
 
 <p>edit-profile works!</p>
 
-<!-- Formulario para modificar datos del usuario -->
+<!-- Contenido principal del componente !-->
+
+<main>
+
+  <!-- Formulario para editar los campos -->
+
+  <form (ngSubmit)="modificarUsuarioExistente()">
+
+    <!-- Campo para el identificador del usuario -->
+
+    <input type="hidden" [value]="usuarioActual?.id">
+    <input type="hidden" [value]="usuarioActual?.fechaCreacion">
+
+    <!-- Campos restantes del usuario actual -->
+
+    <div class="group">
+      <label>Introduce el nombre de usuario: </label>
+      <input type="text" name="nombre" [placeholder]="usuarioActual?.nombre" [(ngModel)]="usuarioModificado.nombre">
+      <label>Introduce los apellidos: </label>
+      <input type="text" name="apellidos" [placeholder]="usuarioActual?.apellidos" [(ngModel)]="usuarioModificado.apellidos">
+    </div>
+
+    <div class="group">
+      <label>Correo electrónico: </label>
+      <input type="email" name="email" [placeholder]="usuarioActual?.email" [(ngModel)]="usuarioModificado.email">
+      <label>Contraseña: </label>
+      <input type="password" name="password" placeholder="Introduce la nueva contraseña" [(ngModel)]="usuarioModificado.password">
+    </div>
+
+    <!-- Botón para enviar datos modificados -->
+
+    <button type="submit">Modificar perfil</button>
+
+  </form>
+
+</main>
