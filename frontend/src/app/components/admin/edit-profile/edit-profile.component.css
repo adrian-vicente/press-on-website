@@ -1,0 +1,16 @@
+
+/* Estilos generales del componente */
+
+* {
+  font-family: var(--fuente-principal);
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Reiniciar valores para html y body */
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
