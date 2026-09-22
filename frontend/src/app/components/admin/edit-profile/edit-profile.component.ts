@@ -16,7 +16,6 @@ import { Router } from '@angular/router';
   styleUrl: './edit-profile.component.css',
 })
 export class EditProfileComponent implements OnInit {
-
   // Inyección de dependencias
 
   private authService: AuthServiceService = inject(AuthServiceService);
@@ -25,7 +24,18 @@ export class EditProfileComponent implements OnInit {
 
   // Declaración de variables
 
-  public usuarioActual: Usuario | null = null;
+  public usuario: Usuario = {
+    id: 0,
+    nombre: '',
+    apellidos: '',
+    fotoPerfil_url: '',
+    email: '',
+    password: '',
+    fechaCreacion: new Date(),
+    fechaActualizacion: new Date(),
+    rol: '',
+  };
+
   public usuarioModificado: UsuarioUpdate = {
     id: 0,
     nombre: '',
@@ -35,55 +45,71 @@ export class EditProfileComponent implements OnInit {
     password: '',
     fechaCreacion: new Date(),
     fechaActualizacion: new Date(),
-    rol: ''
-  }
+    rol: '',
+  };
 
-  // Implementar métodos de la interfaz
+  // Implementar métodos de la interdaz
 
   ngOnInit(): void {
-    // Obtener el usuario autenticado
+
+    // Obtener el usuario actual de la sesión
 
     this.authService.obtenerUsuarioAutenticado().subscribe({
       next: (usuario_api) => {
-        this.usuarioActual = usuario_api;
-        console.log('Se ha encontrado el usuario autenticado sin problemas.');
-      },
-      error: (error_api) => {
-        console.error(error_api.message);
-      },
-    });
-  }
+        this.usuario = usuario_api;
 
-  // Método que permite modificar el usuario autenticado
+        // Trasapasar los datos necesarios para modificar el usuario
 
-  public modificarUsuarioExistente(): void {
+        this.usuarioModificado.id = usuario_api.id;
+        this.usuarioModificado.fechaCreacion = usuario_api.fechaCreacion;
+        this.usuarioModificado.fotoPerfil_url = "no_implementado";
+        this.usuarioModificado.rol = usuario_api.rol;
 
-    // Comprobaciones sobre los campos rellenados / modificados
+        // Mensaje en la consola
 
-    Object.entries(this.usuarioModificado).forEach(([clave, valor]) => {
-
-      if(valor === null || valor === '' || valor === undefined) {
-        this.usuarioModificado[clave as keyof typeof this.usuarioModificado] =
-          this.usuarioActual![clave as keyof typeof this.usuarioActual];
-
-      } // if
-
-    });
-
-    // Lanzar petición para modificar el usuario
-
-    this.usuarioService.modificarUsuarioExistente(this.usuarioModificado).subscribe({
-      next: (usuario_modificado) => {
-        console.log("Los datos del usuario han sido actualizados correctamente.");
-        this.router.navigate(['/home']);
+        console.log("Se ha encontrado al usuario autenticado correctamente.");
       },
       error: (error_api) => {
         console.log("Se ha producido un error: " + error_api.message);
-        console.log({usuarioModificado: this.usuarioModificado});
+      }
+    });
 
+  } // ngOnInit
+
+  // Método que permite actualizar la información de usuario existente
+
+  public modificarUsuarioExistente(): void {
+
+    // Comprobaciones sobre los campos pendientes de usuarioModificado
+
+    if(this.usuarioModificado.nombre === null || this.usuarioModificado.nombre === '') {
+      this.usuarioModificado.nombre = this.usuario.nombre;
+
+    } // if
+
+    if(this.usuarioModificado.apellidos === null || this.usuarioModificado.apellidos === '') {
+      this.usuarioModificado.apellidos = this.usuario.apellidos;
+
+    } // if
+
+    if(this.usuarioModificado.email === null || this.usuarioModificado.email === '') {
+      this.usuarioModificado.email = this.usuario.email;
+
+    } // if
+
+    // Mandar petición a la api para modificar el usuario existente
+
+    this.usuarioService.modificarUsuarioExistente(this.usuarioModificado).subscribe({
+      next: (usuario_api) => {
+        console.log("El usuario se ha actualizado correctamente.");
+        this.router.navigate(['/admin-dashboard']);
+      },
+      error: (error_api) => {
+        console.log("Se ha producido un error: " + error_api.message);
       }
     });
 
   }
+
 
 }

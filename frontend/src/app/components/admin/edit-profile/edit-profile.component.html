@@ -12,30 +12,37 @@
 
   <form (ngSubmit)="modificarUsuarioExistente()">
 
-    <!-- Campo para el identificador del usuario -->
+    <!-- Grupo para los campos de texto -->
 
-    <input type="hidden" [value]="usuarioActual?.id">
-    <input type="hidden" [value]="usuarioActual?.fechaCreacion">
-
-    <!-- Campos restantes del usuario actual -->
-
-    <div class="group">
-      <label>Introduce el nombre de usuario: </label>
-      <input type="text" name="nombre" [placeholder]="usuarioActual?.nombre" [(ngModel)]="usuarioModificado.nombre">
-      <label>Introduce los apellidos: </label>
-      <input type="text" name="apellidos" [placeholder]="usuarioActual?.apellidos" [(ngModel)]="usuarioModificado.apellidos">
+    <div class="group texto">
+      <label>Nombre de usuario: </label>
+      <input type="text" [placeholder]="usuario.nombre" name="nombreUsuario" [(ngModel)]="usuarioModificado.nombre">
     </div>
 
-    <div class="group">
-      <label>Correo electrónico: </label>
-      <input type="email" name="email" [placeholder]="usuarioActual?.email" [(ngModel)]="usuarioModificado.email">
-      <label>Contraseña: </label>
-      <input type="password" name="password" placeholder="Introduce la nueva contraseña" [(ngModel)]="usuarioModificado.password">
+    <div class="group texto">
+      <label>Apellidos del usuario: </label>
+      <input type="text" [placeholder]="usuario.apellidos" name="apellidosUsuario" [(ngModel)]="usuarioModificado.apellidos">
     </div>
 
-    <!-- Botón para enviar datos modificados -->
+    <!-- Grupo para el campo email -->
 
-    <button type="submit">Modificar perfil</button>
+    <div class="group email">
+      <label>Email del usuario: </label>
+      <input type="email" [placeholder]="usuario.email" name="emailUsuario" [(ngModel)]="usuarioModificado.email">
+    </div>
+
+    <!-- Grupo para el campo password -->
+
+    <div class="group password">
+      <label>Password del usuario: </label>
+      <input type="password" placeholder="Introduce la nueva password" name="passwordUsuario" [(ngModel)]="usuarioModificado.password">
+    </div>
+
+    <!-- Botón para enviar el formulario -->
+
+    <div class="group submit_button">
+      <button type="submit">Modificar perfil</button>
+    </div>
 
   </form>
 

@@ -1,7 +1,11 @@
 package backend.backend_v1.service;
 
+import java.time.LocalDateTime;
+
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import backend.backend_v1.dto.Usuario.UsuarioCreateDTO;
 import backend.backend_v1.dto.Usuario.UsuarioDTO;
 import backend.backend_v1.dto.Usuario.UsuarioUpdateDTO;
@@ -20,6 +24,7 @@ public class UsuarioService {
 
     // Inyección de dependencias
 
+    private final PasswordEncoder passwordEncoder;
     private final UsuarioRepository usuarioRepository;
     private final UsuarioMapper usuarioMapper;
     private final AuthService authService;
@@ -51,30 +56,56 @@ public class UsuarioService {
 
     // Método para modificar un usuario existente
 
-    @Transactional
-    public UsuarioDTO modificarUsuarioExistente(HttpSession session, UsuarioUpdateDTO usuarioModificado) throws UsuarioAlreadyExistsException, UsernameNotFoundException, RuntimeException {
+    @Transactional 
+    public UsuarioDTO modificarUsuarioExistente(HttpSession session, UsuarioUpdateDTO usuarioModificado) throws UsuarioAlreadyExistsException, UsernameNotFoundException, IllegalAccessException, NoSuchFieldException {
 
-        // Comprobar si existe un usuario con el email del modificado 
+        // Obtener el usuario actual 
 
-        if(usuarioRepository.existsByEmail(usuarioModificado.getEmail())) {
-            throw new UsuarioAlreadyExistsException("Ya existe un usuario con el mail: " + usuarioModificado.getEmail());
+        UsuarioDTO usuarioActual_dto = authService.obtenerUsuarioAutenticado(session);
+
+        // Obtener la entidad del usuario actual (Con el campo password)
         
+        Usuario usuario = usuarioRepository.findByEmail(usuarioActual_dto.getEmail())
+            .orElseThrow(() -> new UsernameNotFoundException("No se ha encontrado a ningún usuario con email: " + usuarioActual_dto.getEmail()));
+        
+        // Comprobar la correspondencia entre datos del usuario modificado y guardar el usuario
+
+        usuario.setFechaActualizacion(LocalDateTime.now());
+        usuario.setFotoPerfil_url("no_implementado");
+
+        if(usuarioModificado.getNombre() != null && !usuarioModificado.getNombre().trim().toLowerCase().equalsIgnoreCase(usuario.getNombre().trim().toLowerCase())) {
+            usuario.setNombre(usuarioModificado.getNombre());
+
+        } // if
+
+        if(usuarioModificado.getApellidos() != null && !usuarioModificado.getApellidos().trim().toLowerCase().equalsIgnoreCase(usuario.getApellidos().trim().toLowerCase())) {
+            usuario.setPassword(usuarioModificado.getApellidos());
+
+        } // if
+
+        if(usuarioModificado.getEmail() != null && !usuario.getEmail().equalsIgnoreCase(usuarioModificado.getEmail()) && usuarioRepository.existsByEmail(usuarioModificado.getEmail())) {
+            throw new UsuarioAlreadyExistsException("Ya existe un usuario con el email: " + usuarioModificado.getEmail());
+
+        } else if (!usuarioModificado.getEmail().equalsIgnoreCase(usuario.getEmail())) {
+            usuario.setEmail(usuarioModificado.getEmail());
+
+        } // if - else if
+
+        if(usuarioModificado.getPassword() != null && !usuarioModificado.getPassword().isBlank()) {
+            
+            // Se ha introducido una nueva password por lo cuál se borra la actual y se cifra la nueva 
+
+            usuario.setPassword(passwordEncoder.encode(usuarioModificado.getPassword()));
+
         }
 
-        // Obtener la entidad con los datos modificados del usuario
+        // Devolver el objeto con los datos transpilados 
 
-        UsuarioDTO usuarioActual = authService.obtenerUsuarioAutenticado(session);
-        Usuario usuario = usuarioMapper.toEntityFromUpdateDTO(usuarioModificado, usuarioActual);
+        return usuarioMapper.toDTO(
+            usuarioRepository.saveAndFlush(usuario)
 
-        // Guardar los datos del usuario actual 
+        );
 
-        usuarioRepository.saveAndFlush(usuario);
-
-        // Devolver el usuario en formato DTO para el frontend 
-
-        return usuarioMapper
-            .toDTO(usuario);
-
-    }
+     }
 
 } // class

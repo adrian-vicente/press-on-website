@@ -1,12 +1,13 @@
 package backend.backend_v1.mapper;
 
-import backend.backend_v1.config.ValidadorConfig;
 import java.time.LocalDateTime;
+
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
+
+import backend.backend_v1.config.ValidadorConfig;
 import backend.backend_v1.dto.Usuario.UsuarioCreateDTO;
 import backend.backend_v1.dto.Usuario.UsuarioDTO;
-import backend.backend_v1.dto.Usuario.UsuarioUpdateDTO;
 import backend.backend_v1.model.Rol;
 import backend.backend_v1.model.Usuario;
 
@@ -88,31 +89,6 @@ public class UsuarioMapper {
             usuario.setPassword( passwordEncoder.encode(usuarioCreate.getPassword()) );
             usuario.setFechaCreacion(LocalDateTime.now());
             usuario.setRol(Rol.valueOf(usuarioCreate.getRol().name().toUpperCase()));
-
-        return usuario;
-
-    }
-
-    // Método de conversión a entidad de dto de modificación
-
-    public Usuario toEntityFromUpdateDTO(UsuarioUpdateDTO usuarioModificado, UsuarioDTO usuarioActual) {
-        Usuario usuario = new Usuario();
-            usuario.setId(usuarioModificado.getId());
-            usuario.setNombre(usuarioModificado.getNombre());
-            usuario.setApellidos(usuarioModificado.getApellidos());
-            usuario.setFotoPerfil_url(usuarioModificado.getFotoPerfil_url());
-            usuario.setEmail(usuarioModificado.getEmail());
-            usuario.setFechaCreacion(usuarioModificado.getFechaCreacion());
-            usuario.setRol(usuarioModificado.getRol());
-
-        // Comprobaciones sobre la password 
-
-        if(!passwordEncoder.matches(usuarioModificado.getPassword(), usuarioActual.getPassword())) {
-            usuario.setPassword(passwordEncoder.encode(usuarioModificado.getPassword()));
-        
-        } // if
-
-        // Devolver el objeto con los datos modificados 
 
         return usuario;
 

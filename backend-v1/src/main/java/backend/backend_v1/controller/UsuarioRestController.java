@@ -6,10 +6,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 import backend.backend_v1.dto.Usuario.UsuarioCreateDTO;
 import backend.backend_v1.dto.Usuario.UsuarioDTO;
 import backend.backend_v1.dto.Usuario.UsuarioUpdateDTO;
-import backend.backend_v1.exception.Usuario.UsernameNotFoundException;
 import backend.backend_v1.exception.Usuario.UsuarioAlreadyExistsException;
 import backend.backend_v1.service.UsuarioService;
 import jakarta.servlet.http.HttpSession;
@@ -39,8 +39,8 @@ public class UsuarioRestController {
     // Método para modificar usuario existente 
 
     @PutMapping("/modificar")
-    public ResponseEntity<UsuarioDTO> modificarUsuarioExistente(HttpSession session, @RequestBody @Valid UsuarioUpdateDTO usuarioModificado) throws UsuarioAlreadyExistsException, RuntimeException, UsernameNotFoundException {
-        return ResponseEntity.ok(usuarioService.modificarUsuarioExistente(session, usuarioModificado));
+    public ResponseEntity<UsuarioDTO> modificarUsuarioExistente(HttpSession session, @RequestBody @Valid UsuarioUpdateDTO usuarioUpdate) throws UsuarioAlreadyExistsException, IllegalAccessException, NoSuchFieldException {
+        return ResponseEntity.ok(usuarioService.modificarUsuarioExistente(session, usuarioUpdate));
 
     }
 
